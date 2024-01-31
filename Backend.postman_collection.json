@@ -1,0 +1,261 @@
+{
+	"info": {
+		"_postman_id": "0371aeac-f20c-4b5c-84bf-f98c17a11f6d",
+		"name": "Backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "19505828",
+		"_collection_link": "https://speeding-shadow-473644.postman.co/workspace/backend_api_dac~1c4cf22d-71bd-47bf-927f-775c91a9d9e8/collection/19505828-0371aeac-f20c-4b5c-84bf-f98c17a11f6d?action=share&source=collection_link&creator=19505828"
+	},
+	"item": [
+		{
+			"name": "Sign up",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{JWT}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"dummy1@mail.com\",\r\n    \"password\": \"abcd1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}/user"
+			},
+			"response": []
+		},
+		{
+			"name": "Sign in",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"JWT\", pm.response.json().access_token);;\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{JWT}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "dummy1@mail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "abcd1234",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "7829404416",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": "{{url}}/login"
+			},
+			"response": []
+		},
+		{
+			"name": "User profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{JWT}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"first_name\" : \"chethan\",\r\n    \"second_name\" : \"Reddy\",\r\n    \"email\" : \"chethan@mail.com\",\r\n    \"phone_number\" : \"7829404416\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}/user/user_collect"
+			},
+			"response": []
+		},
+		{
+			"name": "DAC assignment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"latitude\" : \"29° 12' N\",\r\n    \"longitude\" : \"2° 20' E\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}/create_digital_access_code/"
+			},
+			"response": []
+		},
+		{
+			"name": "User location authentication",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{JWT}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"digital_access_code\" : \"MH69 4249 7767\",\r\n    \"Aadhaar\" : \"1221 3434 5656\",\r\n    \"address\" : \"banglore\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}/user/user_location_data"
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch user details",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": "{{url}}/user/user_out_mail/dummy1@mail.com"
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch location through DAC",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{JWT}}"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "{{url}}/user/search_dac/6278 2151 9608"
+			},
+			"response": []
+		},
+		{
+			"name": "User profile updation",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{JWT}}"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"first_name\" : \"Chethan\",\r\n    \"second_name\": \"L Reddy\",\r\n    \"email\" : \"chethan1@mail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}/update_user/user_profile/7829404416"
+			},
+			"response": []
+		},
+		{
+			"name": "DAC reassignment | Location updation",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{JWT}}"
+					}
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"digital_access_code\" : \"6278 2151 9608\",\r\n    \"address\" : \"Muthanallur, buststand - 560099\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}/update_user/update_users_location/7829404416"
+			},
+			"response": []
+		},
+		{
+			"name": "Forgot password",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"password\" : \"chethan1\",\r\n    \"retype_password\" : \"chethan1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}/update_user/password_reset/7829404416"
+			},
+			"response": []
+		},
+		{
+			"name": "User deletion (ADMIN)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{JWT}}"
+					}
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": "{{url}}/delete_user/7829404416"
+			},
+			"response": []
+		}
+	]
+}

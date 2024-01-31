@@ -13,8 +13,9 @@ class userCreate(BaseModel):
     # phone_number: str
 
 
-class userOut(userCreate):
+class userOut(BaseModel):
     id: int
+    email: EmailStr
     created_at: datetime
 
     class Config:
